@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+
+        .model{
+            border:1px solid #ccc;
+            padding:20px;
+            position: relative
+        }
+        .close{
+            position: absolute;
+            right:10px;
+            top:10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="root" class="container">
+        
+        <model title="aaaa" v-if="showModel" @close="showModel = false"></model>
+        <button @click="showModel=true">show</button>
+
+    </div>
+
+   <script src="main.js"></script> 
+</body>
+</html>

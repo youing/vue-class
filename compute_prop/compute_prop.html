@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .color-red{
+            color:red;
+        }
+        .ishover{
+            color:blue;
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="root">
+        
+        <h2>All Task</h2>
+        <ul>
+            <li v-for="task in tasks" v-if="task.completed">{{ task.desc }}</li>
+        </ul>
+         <h2>inCompleteTask Task</h2>
+        <ul>
+            <li v-for="task in inCompleteTask">{{ task.desc }}</li>
+        </ul>
+    </div>
+
+    <script>
+    var app = new Vue({
+        el: '#root',
+        data: {
+          message: 'hello',
+          tasks: [
+              {
+                  desc:'aaa',completed:true
+              },
+              {
+                  desc:'bbbb',completed:false
+              },
+              {
+                  desc:'cccc',completed:false
+              }
+          ]
+        },
+        methods:{
+         
+        },
+        computed:{
+            showMessage(){
+                return this.message.split('').reverse().join('')
+            },
+            inCompleteTask(){
+                return this.tasks.filter(task => ! task.completed )
+            }
+        }
+      
+    })
+
+   
+    </script>   
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <style type="text/css">
+
+    </style>
+    <title>Vue 2.0 Hello World</title>
+</head>
+
+<body>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/lodash.min.js"></script>
+    <script src="../lib/velocity.min.js"></script>
+    <script src="../lib/tween.js"></script>
+    <div id="app">
+        <p>{{ message }}</p>
+    </div>
+    <script type='text/javascript'>
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hellffff!'
+  }
+})
+
+
+</script>
+    <div id="app-3">
+        <p v-if="seen">Now you see me</p>
+    </div>
+    <script>
+
+var app3 = new Vue({
+  el: '#app-3',
+  data: {
+    seen: true
+  }
+})
+</script>
+    <div id="app-4">
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.text }}
+            </li>
+        </ol>
+    </div>
+    <script>
+var app4 = new Vue({
+  el: '#app-4',
+  data: {
+    todos: [
+      { text: 'Learn JavaScript' },
+      { text: 'Learn Vue' },
+      { text: 'Build something awesome' }
+    ]
+  }
+})
+
+
+</script>
+    <div id="app-5">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+    <script>
+    var app5 = new Vue({
+  el: '#app-5',
+  data: {
+    message: 'Hello Vue.js!'
+  },
+  methods: {
+    reverseMessage: function () {
+      this.message = this.message.split('').reverse().join('')
+    }
+  }
+})
+</script>
+    <div id="app-6">
+        <p>{{ message }}</p>
+        <input v-model="message">
+    </div>
+    <script>
+    var app6 = new Vue({
+  el: '#app-6',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+</script>
+    <div id="app-7">
+        <ol>
+            <!-- Now we provide each todo-item with the todo object    -->
+            <!-- it's representing, so that its content can be dynamic -->
+            <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+        </ol>
+    </div>
+    <script>
+Vue.component('todo-item', {
+  props: ['todo'],
+  template: '<li>{{ todo.text }}</li>'
+})
+var app7 = new Vue({
+  el: '#app-7',
+  data: {
+    groceryList: [
+      { text: 'Vegetables' },
+      { text: 'Cheese' },
+      { text: 'Whatever else humans are supposed to eat' }
+    ]
+  }
+})
+</script>
+    <div id="demo">
+        <button v-on:click="show = !show">
+    Toggle
+  </button>
+        <transition name="fade">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+    <script>
+ var app8 = new Vue({
+  el: '#demo',
+  data: {
+    show: true
+  }
+})
+
+
+</script>
+    <style>
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity .5s
+        }
+        
+        .fade-enter,
+        .fade-leave-active {
+            opacity: 0
+        }
+    </style>
+    <div id="example-1">
+        <button @click="show = !show">
+    Toggle render
+  </button>
+        <transition name="slide-fade">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+    <script>
+var app9 = new Vue({
+  el: '#example-1',
+  data: {
+    show: true
+  }
+})
+</script>
+    <style>
+        /* 可以设置不同的进入和离开动画 */
+        /* 设置持续时间和动画函数 */
+        
+        .slide-fade-enter-active {
+            transition: all .3s ease;
+        }
+        
+        .slide-fade-leave-active {
+            transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+        
+        .slide-fade-enter,
+        .slide-fade-leave-active {
+            padding-left: 10px;
+            opacity: 0;
+        }
+    </style>
+    <div id="example-2">
+        <button @click="show = !show">Toggle show</button>
+        <transition name="bounce">
+            <p v-if="show">Look at me!</p>
+        </transition>
+    </div>
+    <script>
+    var app10 = new Vue({
+  el: '#example-2',
+  data: {
+    show: true
+  }
+})
+</script>
+    <style>
+        .bounce-enter-active {
+            animation: bounce-in .5s;
+        }
+        
+        .bounce-leave-active {
+            animation: bounce-out .5s;
+        }
+        
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes bounce-out {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(0);
+            }
+        }
+    </style>
+    <div id="list-demo" class="demo">
+        <button v-on:click="add">Add</button>
+        <button v-on:click="remove">Remove</button>
+        <transition-group name="list" tag="p">
+            <span v-for="item in items" v-bind:key="item" class="list-item">
+      {{ item }}
+    </span>
+        </transition-group>
+    </div>
+    <script>
+    var app11 = new Vue({
+  el: '#list-demo',
+  data: {
+    items: [1,2,3,4,5,6,7,8,9],
+    nextNum: 10
+  },
+  methods: {
+    randomIndex: function () {
+      return Math.floor(Math.random() * this.items.length)
+    },
+    add: function () {
+      this.items.splice(this.randomIndex(), 0, this.nextNum++)
+    },
+    remove: function () {
+      this.items.splice(this.randomIndex(), 1)
+    },
+  }
+})
+
+</script>
+    <style>
+        .list-item {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .list-enter-active,
+        .list-leave-active {
+            transition: all 1s;
+        }
+        
+        .list-enter,
+        .list-leave-active {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+    </style>
+    <div id="flip-list-demo" class="demo">
+        <button v-on:click="shuffle">Shuffle</button>
+        <transition-group name="flip-list" tag="ul">
+            <li v-for="item in items" v-bind:key="item">
+                {{ item }}
+            </li>
+        </transition-group>
+    </div>
+    <script>
+    var app12 = new Vue({
+  el: '#flip-list-demo',
+  data: {
+    items: [1,2,3,4,5,6,7,8,9]
+  },
+  methods: {
+    shuffle: function () {
+      this.items = _.shuffle(this.items)
+    }
+  }
+})
+
+</script>
+    <style>
+        .flip-list-move {
+            transition: transform 1s;
+        }
+    </style>
+    <div id="list-complete-demo" class="demo">
+        <button v-on:click="shuffle">Shuffle</button>
+        <button v-on:click="add">Add</button>
+        <button v-on:click="remove">Remove</button>
+        <transition-group name="list-complete" tag="p">
+            <span v-for="item in items" v-bind:key="item" class="list-complete-item">
+      {{ item }}
+    </span>
+        </transition-group>
+    </div>
+    <script>
+    new Vue({
+  el: '#list-complete-demo',
+  data: {
+    items: [1,2,3,4,5,6,7,8,9],
+    nextNum: 10
+  },
+  methods: {
+    randomIndex: function () {
+      return Math.floor(Math.random() * this.items.length)
+    },
+    add: function () {
+      this.items.splice(this.randomIndex(), 0, this.nextNum++)
+    },
+    remove: function () {
+      this.items.splice(this.randomIndex(), 1)
+    },
+    shuffle: function () {
+      this.items = _.shuffle(this.items)
+    }
+  }
+})
+</script>
+    <style>
+        .list-complete-item {
+            transition: all 1s;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .list-complete-enter,
+        .list-complete-leave-active {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .list-complete-leave-active {
+            position: absolute;
+        }
+    </style>
+    - 列表的渐进过渡
+    <div id="staggered-list-demo">
+        <input v-model="query">
+        <transition-group name="staggered-fade" tag="ul" v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave">
+            <li v-for="(item, index) in computedList" v-bind:key="item.msg" v-bind:data-index="index">{{ item.msg }}</li>
+        </transition-group>
+    </div>
+    <script>
+ var app13 = new Vue({
+  el: '#staggered-list-demo',
+  data: {
+    query: '',
+    list: [
+      { msg: 'Bruce Lee' },
+      { msg: 'Jackie Chan' },
+      { msg: 'Chuck Norris' },
+      { msg: 'Jet Li' },
+      { msg: 'Kung Fury' }
+    ]
+  },
+  computed: {
+    computedList: function () {
+      var vm = this
+      return this.list.filter(function (item) {
+        return item.msg.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
+      })
+    }
+  },
+  methods: {
+    beforeEnter: function (el) {
+      el.style.opacity = 0
+      el.style.height = 0
+    },
+    enter: function (el, done) {
+      var delay = el.dataset.index * 150
+      setTimeout(function () {
+        Velocity(
+          el,
+          { opacity: 1, height: '1.6em' },
+          { complete: done }
+        )
+      }, delay)
+    },
+    leave: function (el, done) {
+      var delay = el.dataset.index * 150
+      setTimeout(function () {
+        Velocity(
+          el,
+          { opacity: 0, height: 0 },
+          { complete: done }
+        )
+      }, delay)
+    }
+  }
+})
+</script>
+    <div id="dynamic-fade-demo">
+        Fade In: <input type="range" v-model="fadeInDuration" min="0" v-bind:max="maxFadeDuration"> Fade Out: <input type="range"
+            v-model="fadeOutDuration" min="0" v-bind:max="maxFadeDuration">
+        <transition v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave">
+            <p v-if="show">hello</p>
+        </transition>
+        <button v-on:click="stop = true">Stop it!</button>
+    </div>
+    <script>
+    var app14 = new Vue({
+  el: '#dynamic-fade-demo',
+  data: {
+    show: true,
+    fadeInDuration: 1000,
+    fadeOutDuration: 1000,
+    maxFadeDuration: 1500,
+    stop: false
+  },
+  mounted: function () {
+    this.show = false
+  },
+  methods: {
+    beforeEnter: function (el) {
+      el.style.opacity = 0
+    },
+    enter: function (el, done) {
+      var vm = this
+      Velocity(el,
+        { opacity: 1 },
+        {
+          duration: this.fadeInDuration,
+          complete: function () {
+            done()
+            if (!vm.stop) vm.show = false
+          }
+        }
+      )
+    },
+    leave: function (el, done) {
+      var vm = this
+      Velocity(el,
+        { opacity: 0 },
+        {
+          duration: this.fadeOutDuration,
+          complete: function () {
+            done()
+            vm.show = true
+          }
+        }
+      )
+    }
+  }
+})
+</script>
+    <div id="animated-number-demo">
+        <input v-model.number="number" type="number" step="20">
+        <p>{{ animatedNumber }}</p>
+    </div>
+    <script>
+var app15 = new Vue({
+  el: '#animated-number-demo',
+  data: {
+    number: 0,
+    animatedNumber: 0
+  },
+  watch: {
+    number: function(newValue, oldValue) {
+      var vm = this
+      function animate (time) {
+        requestAnimationFrame(animate)
+        TWEEN.update(time)
+      }
+      new TWEEN.Tween({ tweeningNumber: oldValue })
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .to({ tweeningNumber: newValue }, 500)
+        .onUpdate(function () {
+          vm.animatedNumber = this.tweeningNumber.toFixed(0)
+        })
+        .start()
+      animate()
+    }
+  }
+})
+</script>
+    <div id="example-8">
+        <input v-model.number="firstNumber" type="number" step="20"> +
+        <input v-model.number="secondNumber" type="number" step="20"> = {{ result }}
+        <p>
+            <animated-integer v-bind:value="firstNumber"></animated-integer> +
+            <animated-integer v-bind:value="secondNumber"></animated-integer> =
+            <animated-integer v-bind:value="result"></animated-integer>
+        </p>
+    </div>
+    <script>
+    // 这种复杂的补间动画逻辑可以被复用
+// 任何整数都可以执行动画
+// 组件化使我们的界面十分清晰
+// 可以支持更多更复杂的动态过渡
+// strategies.
+Vue.component('animated-integer', {
+  template: '<span>{{ tweeningValue }}</span>',
+  props: {
+    value: {
+      type: Number,
+      required: true
+    }
+  },
+  data: function () {
+    return {
+      tweeningValue: 0
+    }
+  },
+  watch: {
+    value: function (newValue, oldValue) {
+      this.tween(oldValue, newValue)
+    }
+  },
+  mounted: function () {
+    this.tween(0, this.value)
+  },
+  methods: {
+    tween: function (startValue, endValue) {
+      var vm = this
+      function animate (time) {
+        requestAnimationFrame(animate)
+        TWEEN.update(time)
+      }
+      new TWEEN.Tween({ tweeningValue: startValue })
+        .to({ tweeningValue: endValue }, 500)
+        .onUpdate(function () {
+          vm.tweeningValue = this.tweeningValue.toFixed(0)
+        })
+        .start()
+      animate()
+    }
+  }
+})
+// All complexity has now been removed from the main Vue instance!
+var app16 = new Vue({
+  el: '#example-8',
+  data: {
+    firstNumber: 20,
+    secondNumber: 40
+  },
+  computed: {
+    result: function () {
+      return this.firstNumber + this.secondNumber
+    }
+  }
+})
+</script>
+    <script>
+    // 注册一个全局自定义指令 v-focus
+Vue.directive('focus', {
+  // 当绑定元素插入到 DOM 中。
+  inserted: function (el) {
+    // 聚焦元素
+    el.focus()
+  }
+})
+</script>
+    <input v-focus> slot示例
+    <style>
+        .Alert__close {
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .Alert--Success {
+            color: green;
+        }
+        
+        .Alert--Warning {
+            color: #aa0;
+        }
+        
+        .Alert--Error {
+            color: red;
+        }
+    </style>
+    <template id="alert-template">
+        <div :class="alertClasses" v-show="show">
+            <slot><strong>Default!</strong> Hello World~</slot>
+            <span class="Alert__close" @click="show = false">x</span>
+        </div>
+    </template>
+    <script>
+
+Vue.component('alert', {
+  template: '#alert-template',
+  props: ['type'],
+  computed: {
+    alertClasses: function () {
+      return {
+        'Alert--Success': this.type === 'success',
+        'Alert--Warning': this.type === 'warning',
+        'Alert--Error'  : this.type === 'error'
+      }
+    }
+  },
+  data: function () {
+    return {
+      show: true
+    };
+  }
+});
+
+new Vue({
+  el: 'body'
+});
+
+</script>
+</body>
+
+</html>

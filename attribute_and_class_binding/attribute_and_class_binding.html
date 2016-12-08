@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .color-red{
+            color:red;
+        }
+        .ishover{
+            color:blue;
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="root">
+      <button v-bind:title="title" :class="{ 'ishover': ishover }" @click="toggleClass">hover</button>
+    </div>
+
+    <script>
+    var app = new Vue({
+        el: '#root',
+        data: {
+          title: 'xxxxx',
+          className: 'color-red',
+          ishover: false
+        },
+        methods:{
+           toggleClass(){
+               this.ishover = true
+           }
+        }
+      
+    })
+
+   
+    </script>   
+</body>
+</html>
